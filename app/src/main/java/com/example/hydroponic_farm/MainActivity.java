@@ -3,7 +3,6 @@ package com.example.hydroponic_farm;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -58,9 +57,21 @@ public class MainActivity extends AppCompatActivity {
                if(response.isSuccessful()){
                    try{
                        JSONObject telemetry=new JSONObject(response.body().toString());
-
+                        /*JSON example
+                        {
+                           "temperature": 24.5,
+                           "humidity": 48,
+                           "light": 35000,
+                           "ph": 6.5,
+                           "tds": 1500,
+                           "waterLevel":15,
+                           "RGB_Red":255,
+                           "RGB_Green":25,
+                            "RGB_Blue":29
+                        }
+                        * */
                    }catch (Exception e){
-                       Log.d("TELEMETRY", "Error while parsing the latest telemetry");
+                       Log.d("TELEMETRIES", "Error while parsing the latest telemetry");
                    }
                }
            }
