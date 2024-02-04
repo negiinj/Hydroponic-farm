@@ -1,6 +1,11 @@
 package com.example.hydroponic_farm;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -11,6 +16,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.hydroponic_farm.databinding.ActivityMainBinding;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +44,33 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        String token;
+        SharedPreferences sharedPref = getSharedPreferences("DIRECTORY1", Context.MODE_PRIVATE);
+        token=sharedPref.getString("token", "");
+
+        ThingsBoardService tsb = ServiceGenerator.createService(ThingsBoardService.class);
+
+       Call<JsonObject> resp= tsb.getLatestTel(token, "de9837b0-bb8b-11ee-8027-c77be3144608");
+       resp.enqueue(new Callback<JsonObject>() {
+           @Override
+           public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+               if(response.isSuccessful()){
+                   try{
+                       JSONObject telemetry=new JSONObject(response.body().toString());
+
+                   }catch (Exception e){
+                       Log.d("TELEMETRY", "Error while parsing the latest telemetry");
+                   }
+               }
+           }
+
+           @Override
+           public void onFailure(Call<JsonObject> call, Throwable t) {
+               Toast.makeText(MainActivity.this,"Error while getting the telemetry",(short)3);
+           }
+       });
+
     }
 
 

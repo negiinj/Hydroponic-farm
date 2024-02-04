@@ -5,6 +5,8 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,8 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
 
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -32,6 +36,8 @@ import com.example.hydroponic_farm.ui.login.LoginViewModel;
 import com.example.hydroponic_farm.ui.login.LoginViewModelFactory;
 import com.example.hydroponic_farm.databinding.ActivityLoginBinding;
 import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -151,11 +157,26 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         loadingProgressBar.setVisibility(View.GONE);
                         if (response.isSuccessful()) {
-                            // Handle successful authentication with ThingsBoard
-                            LoggedInUserView fakeUser = new LoggedInUserView(user); // Replace with real user data if needed
-                            updateUiWithUser(fakeUser);
-                            // Finish LoginActivity so the user can't go back to it
-                            finish();
+                            try {
+
+                                JSONObject js = new JSONObject(response.body().toString());
+                                String token = js.getString("token");
+
+                                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("token", token);
+                                editor.apply();
+
+                                Toast.makeText(getApplicationContext(), "Token saved", Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences shared = getPreferences(Context.MODE_PRIVATE);
+                                String tokenString = shared.getString("token", null);
+                                Log.d("LOGIN","User string is "+tokenString);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                            }catch (Exception ex){
+                                    ex.printStackTrace();
+                            }
                         } else {
                             // Handle unsuccessful authentication
                             showLoginFailed(R.string.login_failed);
