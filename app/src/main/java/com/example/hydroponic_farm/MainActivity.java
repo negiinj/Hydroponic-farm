@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         ThingsBoardService tsb = ServiceGenerator.createService(ThingsBoardService.class);
 
-       Call<JsonObject> resp= tsb.getLatestTel(token, "de9837b0-bb8b-11ee-8027-c77be3144608");
+       Call<JsonObject> resp= tsb.getLatestTel("Bearer "+token, "de9837b0-bb8b-11ee-8027-c77be3144608");
        resp.enqueue(new Callback<JsonObject>() {
            @Override
            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                        value= findViewById(R.id.ph);
                        aux=(JSONArray) telemetry.get("ph");
                        aux2= aux.getJSONObject(0);
-                       value.setText(aux2.getInt("value"));
+                       value.setText(aux2.getString("value"));
 
 
                        value= findViewById(R.id.TDS);
