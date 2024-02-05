@@ -17,6 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.hydroponic_farm.databinding.ActivityMainBinding;
 import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import retrofit2.Call;
@@ -70,6 +71,33 @@ public class MainActivity extends AppCompatActivity {
                             "RGB_Blue":29
                         }
                         * */
+
+                       TextView value= findViewById(R.id.temperature);
+                       JSONArray aux=(JSONArray) telemetry.get("temperature");
+                       JSONObject aux2= aux.getJSONObject(0);
+                       value.setText(aux2.getInt("value")+" ºC");
+
+                       value= findViewById(R.id.humidity);
+                       aux=(JSONArray) telemetry.get("humidity");
+                       aux2= aux.getJSONObject(0);
+                       value.setText(aux2.getInt("value")+" %");
+
+                       value= findViewById(R.id.ph);
+                       aux=(JSONArray) telemetry.get("ph");
+                       aux2= aux.getJSONObject(0);
+                       value.setText(aux2.getInt("value"));
+
+
+                       value= findViewById(R.id.TDS);
+                       aux=(JSONArray) telemetry.get("tds");
+                       aux2= aux.getJSONObject(0);
+                       value.setText(aux2.getInt("value")+" ppm");
+
+                       value= findViewById(R.id.light);
+                       aux=(JSONArray) telemetry.get("light");
+                       aux2= aux.getJSONObject(0);
+                       value.setText(aux2.getInt("value")+" LUX");
+
                    }catch (Exception e){
                        Log.d("TELEMETRIES", "Error while parsing the latest telemetry");
                    }
