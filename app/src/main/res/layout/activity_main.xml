@@ -127,7 +127,7 @@
                             android:id="@+id/temperature"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/bus"
+                            android:layout_below="@id/tempimg"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
@@ -135,7 +135,7 @@
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
-                            android:id="@+id/bus"
+                            android:id="@+id/tempimg"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:layout_centerHorizontal="true"
@@ -204,7 +204,7 @@
                             android:id="@+id/ph"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/bus1"
+                            android:layout_below="@id/phimg"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
@@ -212,12 +212,12 @@
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
-                            android:id="@+id/bus1"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
+                            android:id="@+id/phimg"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
-                            app:srcCompat="@drawable/phlevel" />
+                            app:srcCompat="@drawable/img_2" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -237,7 +237,7 @@
                             android:id="@+id/TDS"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/train"
+                            android:layout_below="@id/tdsimg"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
@@ -245,7 +245,7 @@
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
-                            android:id="@+id/train"
+                            android:id="@+id/tdsimg"
                             android:layout_width="100dp"
                             android:layout_height="75dp"
                             android:layout_centerHorizontal="true"
@@ -281,7 +281,7 @@
                             android:id="@+id/light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/cycle"
+                            android:layout_below="@id/lightimg"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
@@ -289,7 +289,7 @@
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
-                            android:id="@+id/cycle"
+                            android:id="@+id/lightimg"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:layout_centerHorizontal="true"
