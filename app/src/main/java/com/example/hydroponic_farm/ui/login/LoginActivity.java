@@ -162,16 +162,11 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject js = new JSONObject(response.body().toString());
                                 String token = js.getString("token");
 
-                                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                SharedPreferences sharedPref = getSharedPreferences("DIRECTORY1", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("token", token);
                                 editor.apply();
-
                                 Toast.makeText(getApplicationContext(), "Token saved", Toast.LENGTH_SHORT).show();
-
-                                SharedPreferences shared = getPreferences(Context.MODE_PRIVATE);
-                                String tokenString = shared.getString("token", null);
-                                Log.d("LOGIN","User string is "+tokenString);
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                             }catch (Exception ex){

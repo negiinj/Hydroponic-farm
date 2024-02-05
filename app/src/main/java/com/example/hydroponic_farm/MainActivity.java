@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                        aux2= aux.getJSONObject(0);
                        value.setText(aux2.getString("value"));
 
-
                        value= findViewById(R.id.TDS);
                        aux=(JSONArray) telemetry.get("tds");
                        aux2= aux.getJSONObject(0);
