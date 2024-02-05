@@ -138,6 +138,9 @@
                             android:id="@+id/tempimg"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
+                            android:clickable="true"
+                            android:onClick="showPopup"
+                            android:tag="temperature"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
                             app:srcCompat="@drawable/temperature" />
@@ -171,6 +174,9 @@
                             android:id="@+id/imageView3"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
+                            android:tag="humidity"
+                            android:clickable="true"
+                            android:onClick="showPopup"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
                             app:srcCompat="@drawable/humidity" />
@@ -292,8 +298,11 @@
                             android:id="@+id/lightimg"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
+                            android:clickable="true"
+                            android:onClick="showPopup"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
+                            android:tag="light"
                             app:srcCompat="@drawable/light" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>

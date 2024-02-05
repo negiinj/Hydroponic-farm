@@ -4,6 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +26,7 @@ import com.example.hydroponic_farm.databinding.ActivityMainBinding;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import retrofit2.Call;
@@ -111,6 +119,64 @@ public class MainActivity extends AppCompatActivity {
        });
 
     }
+
+    public void showPopup(View view) {
+        String tag = view.getTag().toString();
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_layout, null);
+
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;  // Set your desired width
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+
+        PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        // Set up EditText and Button
+        EditText minEditText = popupView.findViewById(R.id.minEditText);
+        EditText maxEditText = popupView.findViewById(R.id.maxEditText);
+        Button submitButton = popupView.findViewById(R.id.submitButton);
+
+        // Customize the hint based on the parameter
+        String minHint = "Enter Min " + tag;
+        String maxHint = "Enter Max " + tag;
+
+        minEditText.setHint(minHint);
+        maxEditText.setHint(maxHint);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the values from the EditText fields
+                int minValue = Integer.parseInt(minEditText.getText().toString());
+                int maxValue = Integer.parseInt(maxEditText.getText().toString());
+
+                // Create a JSON object
+                JSONObject jsonThresholds = new JSONObject();
+
+                try {
+                    // Put values into the JSON object
+                    jsonThresholds.put("tag", tag);
+                    jsonThresholds.put("minValue", minValue);
+                    jsonThresholds.put("maxValue", maxValue);
+
+                    // Print the JSON object (for demonstration purposes)
+                    System.out.println(jsonThresholds.toString());
+
+                    //TODO: You can now use the 'jsonThresholds' object for your specific logic
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // For now, let's just dismiss the popup
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+
 
 
 
