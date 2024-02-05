@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
-    private static final String BASE_URI = "https://srv.diatel.upm.es/api/";
+    private static final String BASE_URI = "https://srv-iot.diatel.upm.es/api/";
     private static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(BASE_URI)
             .client(new OkHttpClient.Builder().addInterceptor((
