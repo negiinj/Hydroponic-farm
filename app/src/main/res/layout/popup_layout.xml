@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dear Farmer,\nPlease enter the desired threshold values of the selected parameter and click submit!"
+            android:text="Please enter the desired threshold values of the selected parameter and click submit!"
             android:textSize="20dp"
             android:textColor="@color/black">
         </TextView>
