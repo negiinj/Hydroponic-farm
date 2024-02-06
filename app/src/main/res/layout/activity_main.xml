@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    >
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -45,10 +45,8 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="#00008577"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -131,13 +129,16 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
-                            android:textSize="24sp"
+                            android:textSize="22sp"
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
                             android:id="@+id/tempimg"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
+                            android:clickable="true"
+                            android:onClick="showPopup"
+                            android:tag="temperature"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
                             app:srcCompat="@drawable/temperature" />
@@ -164,13 +165,16 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
-                            android:textSize="24sp"
+                            android:textSize="22sp"
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
                             android:id="@+id/imageView3"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
+                            android:tag="humidity"
+                            android:clickable="true"
+                            android:onClick="showPopup"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
                             app:srcCompat="@drawable/humidity" />
@@ -208,7 +212,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
-                            android:textSize="24sp"
+                            android:textSize="22sp"
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
@@ -241,13 +245,13 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
-                            android:textSize="24sp"
+                            android:textSize="22sp"
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
                             android:id="@+id/tdsimg"
                             android:layout_width="100dp"
-                            android:layout_height="75dp"
+                            android:layout_height="72dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
                             app:srcCompat="@drawable/img" />
@@ -256,7 +260,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/linearLayout3"
+                android:layout_width="215dp"
                 android:layout_height="175dp"
                 android:orientation="horizontal"
                 android:padding="10dp"
@@ -285,7 +290,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:text=""
-                            android:textSize="24sp"
+                            android:textSize="22sp"
                             app:fontFamily="@font/sfprodisplay_bold" />
 
                         <ImageView
@@ -294,42 +299,26 @@
                             android:layout_height="75dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
+                            android:clickable="true"
+                            android:onClick="showPopup"
+                            android:tag="light"
                             app:srcCompat="@drawable/light" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    app:cardCornerRadius="30dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/airplane"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="10dp"
-                            android:text=""
-                            android:textSize="24sp"
-                            app:fontFamily="@font/sfprodisplay_bold" />
-
-                        <ImageView
-                            android:id="@+id/airplane"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="15dp"
-                            app:srcCompat="@drawable/logo" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
