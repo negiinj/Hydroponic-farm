@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <!-- res/layout/popup_layout.xml -->
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_background"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dear Farmer,\nPlease enter the desired threshold values of the selected parameter and click submit!"
+            android:textSize="20dp"
+            android:textColor="@color/black">
+        </TextView>
+
+        <EditText
+            android:id="@+id/minEditText"
+            android:layout_width="match_parent"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Enter Min Value" />
+
+        <EditText
+            android:id="@+id/maxEditText"
+            android:layout_width="match_parent"
+            android:textSize="20dp"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+            android:hint="Enter Max Value" />
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:padding="20dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Submit" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
