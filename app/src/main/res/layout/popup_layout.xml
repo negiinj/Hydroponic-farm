@@ -30,12 +30,14 @@
             android:layout_width="match_parent"
             android:textSize="20dp"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:hint="Enter Min Value" />
 
         <EditText
             android:id="@+id/maxEditText"
             android:layout_width="match_parent"
             android:textSize="20dp"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:hint="Enter Max Value" />
 
