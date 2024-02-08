@@ -9,6 +9,7 @@
     <string name="sign_in_to_continue">Sign in to continue</string>
     <string name="wellcome">Welcome!</string>
     <string name="sign_in">Sign In</string>
+    <string name="large_text">Hydro Farmm!</string>
     <string name="create_an_account">Create a account</string>
     <string name="todo">TODO</string>
     <string name="login_failed_network">Network error, please try again later.</string>

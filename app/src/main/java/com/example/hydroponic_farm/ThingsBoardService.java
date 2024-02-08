@@ -22,5 +22,9 @@ public interface ThingsBoardService {
     @POST("v1/98pZ8Y2TOyMnghqLcqKr/telemetry")
     Call<Void> sendTel(@Body JsonObject tele, @Path("98pZ8Y2TOyMnghqLcqKr")String device_access_token);
 
+    @Headers({"Accept: application/json", "Content-Type: application/json"})
+    @POST("v1/98pZ8Y2TOyMnghqLcqKr/telemetry")
+    Call<Void> sendThresholds(@Body JsonObject command, @Header("X-Authoritation") String token);
+
 }
 
