@@ -18,6 +18,7 @@ import com.example.hydroponic_farm.R;
 import com.example.hydroponic_farm.ServiceGenerator;
 import com.example.hydroponic_farm.ThingsBoardService;
 import com.example.hydroponic_farm.databinding.FragmentDashboardBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -30,6 +31,9 @@ import retrofit2.Response;
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
+    String token;
+    SharedPreferences sharedPref;
+    ThingsBoardService tsb;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,12 +43,30 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         // Fetch telemetry data
-        String token;
-        SharedPreferences sharedPref = requireContext().getSharedPreferences("DIRECTORY1", Context.MODE_PRIVATE);
+
+        sharedPref = requireContext().getSharedPreferences("DIRECTORY1", Context.MODE_PRIVATE);
         token = sharedPref.getString("token", "");
 
-        ThingsBoardService tsb = ServiceGenerator.createService(ThingsBoardService.class);
+        tsb = ServiceGenerator.createService(ThingsBoardService.class);
+        FloatingActionButton refresh= root.findViewById(R.id.floatingActionButton);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writeDashboard();
+            }
+        });
+        writeDashboard();
+/*        final TextView textView = binding.textDashboard;
+        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);*/
+        return root;
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+    private void writeDashboard(){
         Call<JsonObject> resp = tsb.getLatestTel("Bearer " + token, "de9837b0-bb8b-11ee-8027-c77be3144608");
         resp.enqueue(new Callback<JsonObject>() {
             @Override
@@ -53,31 +75,31 @@ public class DashboardFragment extends Fragment {
                     try {
                         JSONObject telemetry = new JSONObject(response.body().toString());
 
-                        TextView temperatureTextView = root.findViewById(R.id.temperature);
+                        TextView temperatureTextView = getView().findViewById(R.id.temperature);
                         JSONArray temperatureArray = telemetry.getJSONArray("temperature");
                         JSONObject temperatureObject = temperatureArray.getJSONObject(0);
                         temperatureTextView.setText(temperatureObject.getInt("value") + " ºC");
 
                         // Update humidity
-                        TextView humidityTextView = root.findViewById(R.id.humidity);
+                        TextView humidityTextView = getView().findViewById(R.id.humidity);
                         JSONArray humidityArray = telemetry.getJSONArray("humidity");
                         JSONObject humidityObject = humidityArray.getJSONObject(0);
                         humidityTextView.setText(humidityObject.getInt("value") + " %");
 
                         // Update pH
-                        TextView pHTextView = root.findViewById(R.id.ph);
+                        TextView pHTextView = getView().findViewById(R.id.ph);
                         JSONArray pHArray = telemetry.getJSONArray("ph");
                         JSONObject pHObject = pHArray.getJSONObject(0);
                         pHTextView.setText(pHObject.getString("value"));
 
                         // Update TDS
-                        TextView TDSTextView = root.findViewById(R.id.TDS);
+                        TextView TDSTextView = getView().findViewById(R.id.TDS);
                         JSONArray TDSArray = telemetry.getJSONArray("tds");
                         JSONObject TDSObject = TDSArray.getJSONObject(0);
                         TDSTextView.setText(TDSObject.getInt("value") + " ppm");
 
                         // Update light
-                        TextView lightTextView = root.findViewById(R.id.light);
+                        TextView lightTextView = getView().findViewById(R.id.light);
                         JSONArray lightArray = telemetry.getJSONArray("light");
                         JSONObject lightObject = lightArray.getJSONObject(0);
                         lightTextView.setText(lightObject.getInt("value") + " LUX");
@@ -94,15 +116,5 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-
-/*        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);*/
-        return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }
