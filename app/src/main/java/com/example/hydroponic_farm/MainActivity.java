@@ -11,9 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.gson.JsonObject;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,11 +22,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.hydroponic_farm.databinding.ActivityMainBinding;
-import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,36 +45,12 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-       // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        //NavigationUI.setupWithNavController(binding.navView, navController);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.navView, navController);
 
-        String token;
-        SharedPreferences sharedPref = getSharedPreferences("DIRECTORY1", Context.MODE_PRIVATE);
-        token=sharedPref.getString("token", "");
+/*
 
-        ThingsBoardService tsb = ServiceGenerator.createService(ThingsBoardService.class);
-
-       Call<JsonObject> resp= tsb.getLatestTel("Bearer "+token, "de9837b0-bb8b-11ee-8027-c77be3144608");
-       resp.enqueue(new Callback<JsonObject>() {
-           @Override
-           public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-               if(response.isSuccessful()){
-                   try{
-                       JSONObject telemetry=new JSONObject(response.body().toString());
-                        /*JSON example
-                        {
-                           "temperature": 24.5,
-                           "humidity": 48,
-                           "light": 35000,
-                           "ph": 6.5,
-                           "tds": 1500,
-                           "waterLevel":15,
-                           "RGB_Red":255,
-                           "RGB_Green":25,
-                            "RGB_Blue":29
-                        }
-                        * */
-
+/*
                        TextView value= findViewById(R.id.temperature);
                        JSONArray aux=(JSONArray) telemetry.get("temperature");
                        JSONObject aux2= aux.getJSONObject(0);
@@ -117,10 +87,11 @@ public class MainActivity extends AppCompatActivity {
                Toast.makeText(MainActivity.this,"Error while getting the telemetry",(short)3);
            }
        });
+*/
 
     }
 
-    public void showPopup(View view) {
+    public void popUpThreshold(View view) {
         String tag = view.getTag().toString();
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -151,33 +122,57 @@ public class MainActivity extends AppCompatActivity {
                 // Get the values from the EditText fields
                 int minValue = Integer.parseInt(minEditText.getText().toString());
                 int maxValue = Integer.parseInt(maxEditText.getText().toString());
-
-                // Create a JSON object
-                JSONObject jsonThresholds = new JSONObject();
-
-                try {
-                    // Put values into the JSON object
-                    jsonThresholds.put("tag", tag);
-                    jsonThresholds.put("minValue", minValue);
-                    jsonThresholds.put("maxValue", maxValue);
-
-                    // Print the JSON object (for demonstration purposes)
-                    System.out.println(jsonThresholds.toString());
-
-                    //TODO: You can now use the 'jsonThresholds' object for your specific logic
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                
+                sendThresholdsFormat(minValue, maxValue, tag);
 
                 // For now, let's just dismiss the popup
                 popupWindow.dismiss();
             }
+
         });
     }
+    public void sendThresholdsFormat(int minValue, int maxValue, String tag) {
+        ThingsBoardService thingsBoardService = ServiceGenerator.createService(ThingsBoardService.class);
 
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String tokenString = sharedPref.getString("token", null);
 
+        // Create a JSON object
+        JsonObject jsonThresholds = new JsonObject();
+        try {
+            // Put values into the JSON object
+            //jsonThresholds.addProperty("tag", tag);
+            jsonThresholds.addProperty("min"+tag, minValue);
+            jsonThresholds.addProperty("max"+tag, maxValue);
 
+            // Print the JSON object (for demonstration purposes)
+            System.out.println(jsonThresholds.toString());
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        Call<Void> resp = thingsBoardService.sendThresholds(jsonThresholds, tokenString);
+
+        resp.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    try {
+                        Toast.makeText(getApplicationContext(), "Threshold changed successfully", Toast.LENGTH_SHORT).show();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Error sending command", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failure: connection loss", Toast.LENGTH_SHORT).show();
+                Log.d("Failure", t.toString());
+            }
+        });
+    }
 }
