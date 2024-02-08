@@ -32,7 +32,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="30dp"
                 android:background="#00008577"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,12 +58,27 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:text="Check Out Farm's Status"
                 android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
                 app:layout_constraintEnd_toStartOf="@+id/cardView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:onClick="updateData"
+                android:src="@android:drawable/ic_popup_sync"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:tint="@color/black" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
