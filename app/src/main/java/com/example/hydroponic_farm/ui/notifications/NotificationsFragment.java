@@ -4,29 +4,47 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.example.hydroponic_farm.MyAdapter;
+import com.example.hydroponic_farm.R;
 import com.example.hydroponic_farm.databinding.FragmentNotificationsBinding;
+
+import java.util.ArrayList;
 
 public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+    private ListView alarmsListView;
+    private MyAdapter alarmAdapter;
+    private ArrayList<Alarm> alarmList = new ArrayList<>();
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+    public NotificationsFragment() {
+        // Required empty public constructor
+    }
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        return inflater.inflate(R.layout.fragment_notifications, container, false);
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        alarmsListView = view.findViewById(R.id.alarmsListView);
+        alarmAdapter = new MyAdapter(getContext(), alarmList);
+        alarmsListView.setAdapter(alarmAdapter);
+
+        //fetchAlarms(); // You'll implement this method to fetch alarms from ThingsBoard
     }
 
     @Override
@@ -34,4 +52,5 @@ public class NotificationsFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }
