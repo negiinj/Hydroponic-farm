@@ -4,33 +4,40 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hydroponic_farm.ui.notifications.Alarm;
+import com.example.hydroponic_farm.ui.notifications.AlarmsDataset;
+
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 
-public class MyAdapter extends ArrayAdapter<Alarm> {
-    public MyAdapter(Context context, ArrayList<Alarm> alarms) {
-        super(context, 0, alarms);
+public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+
+    AlarmsDataset dataset;
+    public MyAdapter(AlarmsDataset dataset){
+        super();
+        this.dataset=dataset;
+    }
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_item, parent, false);
+        return new MyViewHolder(v);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Alarm alarm = getItem(position);
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.alarm_item, parent, false);
-        }
-        TextView alarmType = convertView.findViewById(R.id.Alarm_type);
-        TextView alarmSeverity = convertView.findViewById(R.id.Alarm_severity);
-        TextView alarmReason = convertView.findViewById(R.id.Alarm_reason);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Alarm alarm = dataset.getAlarmAtPosition(position);
+        holder.bindValues(alarm);
+    }
 
-        alarmType.setText(alarm.getType());
-        alarmSeverity.setText(alarm.getSeverity());
-        alarmReason.setText(alarm.getReason());
-
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return dataset.getLength();
     }
 }
