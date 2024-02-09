@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.example.hydroponic_farm.MyAdapter;
+import com.example.hydroponic_farm.R;
 import com.example.hydroponic_farm.databinding.FragmentNotificationsBinding;
+
+import java.util.ArrayList;
 
 public class NotificationsFragment extends Fragment {
 
@@ -51,4 +55,5 @@ public class NotificationsFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

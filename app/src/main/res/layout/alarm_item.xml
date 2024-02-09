@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="5dp"
+    android:layout_margin="10dp"
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/linearlayoutforitems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E7E9E6">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Alarm_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:fontFamily="@font/sfprodisplay_bold"
+                android:text="Type"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                />
+
+            <TextView
+                android:id="@+id/Alarm_severity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:paddingLeft="90dp"
+                android:fontFamily="@font/sfprodisplay_bold"
+                android:text="severity"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                />
+            <TextView
+                android:id="@+id/Alarm_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:paddingLeft="40dp"
+                android:fontFamily="@font/sfprodisplay_bold"
+                android:text="reason"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                />
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
