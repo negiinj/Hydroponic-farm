@@ -19,8 +19,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
             super(itemView);
 
             // Find each view by ID from the itemView
-            alarmType = itemView.findViewById(R.id.alarmType);
-            alarmSeverity = itemView.findViewById(R.id.alarmSeverity);
-            alarmReason = itemView.findViewById(R.id.alarmReason);
+            alarmType = itemView.findViewById(R.id.Alarm_type);
+            alarmSeverity = itemView.findViewById(R.id.Alarm_severity);
+            alarmReason = itemView.findViewById(R.id.Alarm_reason);
         }
 }
