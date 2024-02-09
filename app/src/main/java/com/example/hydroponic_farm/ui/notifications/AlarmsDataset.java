@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -32,15 +34,17 @@ public class AlarmsDataset{
     private ArrayList<Alarm> alarmList;
     String token;
     Context context;
+    Handler handler;
 
-    public AlarmsDataset(Context context, String token) {
+    public AlarmsDataset(Context context, String token, Handler handler) {
         alarmList=new ArrayList<>();
         this.token=token;
         this.context=context;
+        this.handler=handler;
     }
     public void fill() {
         ThingsBoardService service = ServiceGenerator.createService(ThingsBoardService.class);
-        Call<JsonObject> call = service.getAlarms("Bearer " +token, "de9837b0-bb8b-11ee-8027-c77be3144608" ,50,0); // Get the 10 latest alerts
+        Call<JsonObject> call = service.getAlarms("Bearer " +token, "de9837b0-bb8b-11ee-8027-c77be3144608" ,100,0); // Get the 10 latest alerts
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -92,6 +96,10 @@ public class AlarmsDataset{
                         throw new RuntimeException(e);
                     }
                     Log.d("ALARMS","Parsing correctly done");
+                    Message msg = handler.obtainMessage();
+                    Bundle msg_data = msg.getData();
+                    msg_data.putChar("ok",'k');
+                    msg.sendToTarget();
                 } else {
                     Log.e("ALARMS", "Could not get the alarms correctly");
                     Toast.makeText(context, "The app REST token may have expired, log in again", Toast.LENGTH_SHORT);
@@ -102,6 +110,12 @@ public class AlarmsDataset{
                 Log.e("ALARMS", t.getMessage());
             }
         });
+    }
+    public Alarm getAlarmAtPosition(int i){
+        return alarmList.get(i);
+    }
 
+    public int getLength(){
+        return alarmList.size();
     }
 }

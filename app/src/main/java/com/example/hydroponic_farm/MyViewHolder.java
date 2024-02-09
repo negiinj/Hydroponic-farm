@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hydroponic_farm.ui.notifications.Alarm;
+
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
         // Define member variables for any views that will be set as you render a row
@@ -23,4 +25,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
             alarmSeverity = itemView.findViewById(R.id.Alarm_severity);
             alarmReason = itemView.findViewById(R.id.Alarm_reason);
         }
+    void bindValues(Alarm a) {
+        // give values to the elements contained in the item view.
+        // formats the title's text color depending on the "isSelected" argument.
+        alarmType.setText(a.getType());
+        alarmSeverity.setText(a.getSeverity());
+        alarmReason.setText(a.getReason());
+    }
 }
