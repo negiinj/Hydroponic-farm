@@ -26,7 +26,7 @@ public interface ThingsBoardService {
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     @GET("alarm/DEVICE/{device_id}")
-    Call<JsonObject> getAlarms(@Header("X-Authorization") String token, @Path("device_id") String device_id, @Query("pageSize")int pgSize, @Query("page")int page);
+    Call<JsonObject> getAlarms(@Header("X-Authorization") String token, @Path("device_id") String device_id, @Query("pageSize")int pgSize, @Query("page")int page, @Query("sortProperty")String sortProperty, @Query("sortOrder")String sortOrder);
 
     @POST("alarm/{alarmId}/clear")
     Call<Void> clearAlarm(@Header("X-Authorization") String token, @Path("alarmId") String alarmid);

@@ -44,7 +44,7 @@ public class AlarmsDataset{
     }
     public void fill() {
         ThingsBoardService service = ServiceGenerator.createService(ThingsBoardService.class);
-        Call<JsonObject> call = service.getAlarms("Bearer " +token, "de9837b0-bb8b-11ee-8027-c77be3144608" ,100,0); // Get the 10 latest alerts
+        Call<JsonObject> call = service.getAlarms("Bearer " +token, "de9837b0-bb8b-11ee-8027-c77be3144608" ,100,0, "createdTime", "DESC"); // Get the 10 latest alerts
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
