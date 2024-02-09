@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Call<Void> resp = thingsBoardService.sendThresholds(jsonThresholds, tokenString);
+        Call<Void> resp = thingsBoardService.sendThresholds(jsonThresholds, tokenString, "98pZ8Y2TOyMnghqLcqKr");
 
         resp.enqueue(new Callback<Void>() {
             @Override

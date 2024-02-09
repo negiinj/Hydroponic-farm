@@ -1,5 +1,7 @@
 package com.example.hydroponic_farm.ui.notifications;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +17,15 @@ import com.example.hydroponic_farm.databinding.FragmentNotificationsBinding;
 public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
-
+    AlarmsDataset dataset;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        SharedPreferences sp=requireContext().getSharedPreferences("DIRECTORY1", Context.MODE_PRIVATE);
+        dataset=new AlarmsDataset(NotificationsFragment.this.getContext(),sp.getString("token", ""));
+        dataset.fill();//Should fill in a different thread?
         return root;
     }
 
