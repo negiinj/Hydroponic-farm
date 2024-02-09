@@ -11,7 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#476E6A">
 
 
         <TextView
@@ -22,8 +23,8 @@
             android:gravity="center"
             android:padding="5dp"
             android:text=" Daily Alarms"
-            android:textColor="@color/black"
-            android:textSize="19sp"
+            android:textColor="@color/white"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,11 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.063" />
+            app:layout_constraintVertical_bias="0.063"
+            android:paddingBottom="90dp"/>
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
