@@ -30,6 +30,31 @@ public class Alarm {
     private boolean isCleared;
     private String type;
     private String severity;
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isAck() {
+        return isAck;
+    }
+
+    public boolean isCleared() {
+        return isCleared;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
     private String reason;
 
     public Alarm() {
