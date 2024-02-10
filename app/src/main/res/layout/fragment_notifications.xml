@@ -7,44 +7,65 @@
     tools:context=".ui.notifications.NotificationsFragment">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#476E6A">
+        android:background="#476E6A"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-16dp">
 
-
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
+            android:id="@+id/linearLayoutfortitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sfprodisplay_bold"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:padding="5dp"
-            android:text=" Daily Alarms"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:padding="9dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        </TextView>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/sfprodisplay_bold"
+                android:padding="5dp"
+                android:text=" Daily Alarms"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonforAlarms"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:onClick="updateAlarmData"
+                android:src="@android:drawable/ic_popup_sync"
+                app:fabSize="mini"
+                app:tint="@color/black" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingBottom="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.063"
-            android:paddingBottom="90dp"/>
-
-
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutfortitle"
+            app:layout_constraintVertical_bias="0.063" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
