@@ -22,9 +22,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hydroponic_farm.MyAdapter;
+import com.example.hydroponic_farm.ServiceGenerator;
+import com.example.hydroponic_farm.ThingsBoardService;
 import com.example.hydroponic_farm.ui.notifications.Alarm;
 import com.example.hydroponic_farm.R;
 import com.example.hydroponic_farm.databinding.FragmentNotificationsBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,7 @@ public class NotificationsFragment extends Fragment {
     private RecyclerView alarmsListView;
     private MyAdapter alarmAdapter;
     SharedPreferences sharedPref;
+    FloatingActionButton refreshAlarms;
     String token;
     public NotificationsFragment() {
         // Required empty public constructor
@@ -55,12 +59,21 @@ public class NotificationsFragment extends Fragment {
                 Log.d("HANDLER", "Dataset length="+dataset.getLength());
             }
         };
-        dataset = new AlarmsDataset(getContext(),token,handler);
+        ThingsBoardService service = ServiceGenerator.createService(ThingsBoardService.class);
+        dataset = new AlarmsDataset(getContext(),token,handler, service);
         alarmsListView = view.findViewById(R.id.recyclerView);
-        alarmAdapter = new MyAdapter(dataset);
+        alarmAdapter = new MyAdapter(dataset, service, token);
         alarmsListView.setAdapter(alarmAdapter);
         alarmsListView.setItemAnimator(new DefaultItemAnimator());
         alarmsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        refreshAlarms = view.findViewById(R.id.floatingActionButtonforAlarms);
+        refreshAlarms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataset.clear();
+                dataset.fill();
+            }
+        });
         return view;
     }
 

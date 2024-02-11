@@ -19,9 +19,13 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     AlarmsDataset dataset;
-    public MyAdapter(AlarmsDataset dataset){
+    ThingsBoardService service;
+    String token;
+    public MyAdapter(AlarmsDataset dataset, ThingsBoardService service, String token){
         super();
         this.dataset=dataset;
+        this.service=service;
+        this.token=token;
     }
     @NonNull
     @Override
@@ -33,7 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Alarm alarm = dataset.getAlarmAtPosition(position);
-        holder.bindValues(alarm);
+        holder.bindValues(alarm, service, token);
     }
 
     @Override
