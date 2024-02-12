@@ -30,5 +30,8 @@ public interface ThingsBoardService {
 
     @POST("alarm/{alarmId}/clear")
     Call<Void> clearAlarm(@Header("X-Authorization") String token, @Path("alarmId") String alarmid);
+
+    @POST("alarm/{alarmId}/ack")
+    Call<Void> ackAlarm(@Header("X-Authorization") String token, @Path("alarmId") String alarmid);
 }
 
