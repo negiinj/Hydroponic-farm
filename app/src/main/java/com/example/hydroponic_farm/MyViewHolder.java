@@ -1,5 +1,6 @@
 package com.example.hydroponic_farm;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView alarmReason;
         Button acknowledgeButton;
         Button clearButton;
+       int red = 128;
+       int green = 128;
+       int blue = 128;
+
 
         // Constructor that accepts the entire item row and does the view lookups
         public MyViewHolder(View itemView) {
@@ -42,6 +47,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         alarmType.setText(a.getType());
         alarmSeverity.setText(a.getSeverity());
         alarmReason.setText(a.getReason());
+        // Set acknowledge button
+        if (a.isAck()) {
+            acknowledgeButton.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(red, green, blue)));
+            acknowledgeButton.setText("Acknowledged");}
         acknowledgeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +60,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.isSuccessful()){
                             Log.d("ALARM","Alarm acknowledged successfully");
+                            acknowledgeButton.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(red, green, blue)));
+                            acknowledgeButton.setText("Acknowledged");
                         }else{
                             Log.e("ALARM","Error while acknowledging the alarm");
                         }
@@ -72,6 +83,9 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.isSuccessful()){
                             Log.d("ALARM","Alarm cleared successfully");
+                            clearButton.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(red, green, blue)));
+                            clearButton.setText("Cleared");
+                            a.setAck(true);
                         }else{
                             Log.e("ALARM","Error while clearing the alarm");
                         }
